@@ -3,7 +3,7 @@ var React = require('react');
 var TodoApp = React.createClass({
   render: function(){
     return(
-      TodoApp.jsx
+      <div>TodoApp.jsx</div>
     );
   }
 });
