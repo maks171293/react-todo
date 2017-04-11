@@ -25882,6 +25882,7 @@
 	var React = __webpack_require__(8);
 	var TodoList = __webpack_require__(297);
 
+	var TodoAPI = __webpack_require__(299);
 
 	var TodoApp = React.createClass({
 	  displayName: 'TodoApp',
@@ -25890,24 +25891,11 @@
 	    return {
 	      showCompleted: false,
 	      searchText: '',
-	      todos: [{
-	        id: (0, _nodeUuid2.default)(),
-	        text: 'Walk the dog',
-	        completed: true
-	      }, {
-	        id: (0, _nodeUuid2.default)(),
-	        text: 'Clean the room',
-	        completed: false
-	      }, {
-	        id: (0, _nodeUuid2.default)(),
-	        text: 'Buy the car',
-	        completed: true
-	      }, {
-	        id: (0, _nodeUuid2.default)(),
-	        text: 'Understand redux',
-	        completed: false
-	      }]
+	      todos: TodoAPI.getTodos()
 	    };
+	  },
+	  componentDidUpdate: function componentDidUpdate() {
+	    TodoAPI.setTodos(this.state.todos);
 	  },
 	  handleAddTodo: function handleAddTodo(text) {
 	    this.setState({
@@ -34522,6 +34510,35 @@
 	});
 
 	exports.default = Todo;
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var $ = __webpack_require__(7);
+
+	module.exports = {
+	  setTodos: function setTodos(todos) {
+	    if ($.isArray(todos)) {
+	      localStorage.setItem('todos', JSON.stringify(todos));
+	    };
+	    return todos;
+	  },
+	  getTodos: function getTodos() {
+	    var stringTodos = localStorage.getItem('todos');
+	    var todos = [];
+	    try {
+	      todos = JSON.parse(stringTodos);
+	    } catch (e) {}
+	    if ($.isArray(todos)) {
+	      return todos;
+	    } else {
+	      return [];
+	    }
+	  }
+	};
 
 /***/ }
 /******/ ]);
