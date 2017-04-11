@@ -25864,20 +25864,115 @@
 	'use strict';
 
 	var React = __webpack_require__(8);
+	var TodoList = __webpack_require__(236);
 
 	var TodoApp = React.createClass({
 	  displayName: 'TodoApp',
 
+	  getInitialState: function getInitialState() {
+	    return {
+	      todos: [{
+	        id: 1,
+	        text: 'Walk the dog'
+	      }, {
+	        id: 2,
+	        text: 'Clean the room'
+	      }, {
+	        id: 3,
+	        text: 'Buy the car'
+	      }, {
+	        id: 4,
+	        text: 'Understand redux'
+	      }]
+	    };
+	  },
 	  render: function render() {
+	    var todos = this.state.todos;
+
 	    return React.createElement(
 	      'div',
 	      null,
-	      'TodoApp.jsx'
+	      React.createElement(TodoList, { todos: todos })
 	    );
 	  }
 	});
 
 	module.exports = TodoApp;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(8);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Todo = __webpack_require__(237);
+
+	var _Todo2 = _interopRequireDefault(_Todo);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var TodoList = _react2.default.createClass({
+	  displayName: 'TodoList',
+
+	  render: function render() {
+	    var todos = this.props.todos;
+
+	    var renderTodo = function renderTodo() {
+	      return todos.map(function (todo) {
+	        return _react2.default.createElement(_Todo2.default, _extends({ key: todo.id }, todo));
+	      });
+	    };
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      renderTodo()
+	    );
+	  }
+	});
+
+	module.exports = TodoList;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(8);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Todo = _react2.default.createClass({
+	  displayName: 'Todo',
+
+	  render: function render() {
+	    var _props = this.props,
+	        id = _props.id,
+	        text = _props.text;
+
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      id,
+	      '.',
+	      text
+	    );
+	  }
+	});
+
+	exports.default = Todo;
 
 /***/ }
 /******/ ]);
