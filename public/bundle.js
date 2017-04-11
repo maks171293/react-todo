@@ -25869,7 +25869,11 @@
 	  displayName: 'TodoApp',
 
 	  render: function render() {
-	    return TodoApp.jsx;
+	    return React.createElement(
+	      'div',
+	      null,
+	      'TodoApp.jsx'
+	    );
 	  }
 	});
 
