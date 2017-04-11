@@ -110,13 +110,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var TodoApp = __webpack_require__(235);
+
 	$(document).foundation();
 
-	_reactDom2.default.render(_react2.default.createElement(
-	  'p',
-	  null,
-	  'Hello'
-	), document.getElementById('app'));
+	_reactDom2.default.render(_react2.default.createElement(TodoApp, null), document.getElementById('app'));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
@@ -25858,6 +25856,24 @@
 
 	// exports
 
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(8);
+
+	var TodoApp = React.createClass({
+	  displayName: 'TodoApp',
+
+	  render: function render() {
+	    return TodoApp.jsx;
+	  }
+	});
+
+	module.exports = TodoApp;
 
 /***/ }
 /******/ ]);
