@@ -25863,8 +25863,15 @@
 
 	'use strict';
 
+	var _AddTodo = __webpack_require__(238);
+
+	var _AddTodo2 = _interopRequireDefault(_AddTodo);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	var React = __webpack_require__(8);
 	var TodoList = __webpack_require__(236);
+
 
 	var TodoApp = React.createClass({
 	  displayName: 'TodoApp',
@@ -25886,13 +25893,17 @@
 	      }]
 	    };
 	  },
+	  handleAddTodo: function handleAddTodo(text) {
+	    alert("this is text: " + text);
+	  },
 	  render: function render() {
 	    var todos = this.state.todos;
 
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(TodoList, { todos: todos })
+	      React.createElement(TodoList, { todos: todos }),
+	      React.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo })
 	    );
 	  }
 	});
@@ -25973,6 +25984,55 @@
 	});
 
 	exports.default = Todo;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(8);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AddTodo = _react2.default.createClass({
+	  displayName: 'AddTodo',
+
+	  handleSubmit: function handleSubmit(e) {
+	    e.preventDefault();
+	    var todoText = this.refs.todoText.value;
+	    if (todoText.length > 0) {
+	      this.props.onAddTodo(todoText);
+	      this.refs.todoText.value = '';
+	    } else {
+	      this.refs.todoText.focus();
+	    }
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'form',
+	        { className: 'add-todo-form', onSubmit: this.handleSubmit },
+	        _react2.default.createElement('input', { type: 'text', placeholder: 'What do you need to do?', ref: 'todoText' }),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'button' },
+	          'Add Todo'
+	        )
+	      )
+	    );
+	  }
+	});
+
+	exports.default = AddTodo;
 
 /***/ }
 /******/ ]);
