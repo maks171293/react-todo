@@ -25852,7 +25852,7 @@
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".container {\n  padding: 0;\n  margin-bottom: 2rem;\n  background-color: #fafafa;\n  border: 1px solid #eeeeee;\n  border-radius: 5px; }\n\n.container__header {\n  border-bottom: 1px solid #eeeeee;\n  padding: 1rem; }\n  .container__header label {\n    cursor: pointer;\n    font-style: 1rem; }\n  .container__header > :last-child {\n    display: -webkit-flex;\n    display: -ms-flex;\n    display: flex;\n    align-items: center; }\n\n.container__message {\n  color: #aaaaaa;\n  margin: 2rem auto;\n  text-align: center; }\n\n.container__footer {\n  border-top: 1px solid #eeeeee;\n  padding: 1rem 1rem 0 1rem; }\n\n.todo {\n  cursor: pointer;\n  display: -webkit-flex;\n  display: -ms-flex;\n  display: flex;\n  align-items: center;\n  padding: 1rem;\n  transition: background .3s ease; }\n  .todo p, .todo input {\n    margin: 0; }\n  .todo > :first-child {\n    margin-right: 1rem; }\n  .todo:hover {\n    background: #f0f0f0; }\n\n.todo__subtext {\n  color: #999; }\n\n.todo-completed p, .todo-completed .todo__subtext {\n  color: #aaaaaa;\n  text-decoration: line-through; }\n\n.page-title {\n  margin: 0;\n  padding: 2rem 0;\n  text-align: center; }\n", ""]);
 
 	// exports
 
@@ -25941,9 +25941,26 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(_TodoSearch2.default, { onSearch: this.handleSearch }),
-	      React.createElement(TodoList, { todos: filteredTodos, onToggle: this.handleToggle }),
-	      React.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo })
+	      React.createElement(
+	        'h1',
+	        { className: 'page-title' },
+	        'Todo App'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'row' },
+	        React.createElement(
+	          'div',
+	          { className: 'column small-centered small-11 medium-6 large-5' },
+	          React.createElement(
+	            'div',
+	            { className: 'container' },
+	            React.createElement(_TodoSearch2.default, { onSearch: this.handleSearch }),
+	            React.createElement(TodoList, { todos: filteredTodos, onToggle: this.handleToggle }),
+	            React.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo })
+	          )
+	        )
+	      )
 	    );
 	  }
 	});
@@ -25982,14 +25999,14 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      null,
+	      { className: 'container__footer' },
 	      _react2.default.createElement(
 	        'form',
 	        { className: 'add-todo-form', onSubmit: this.handleSubmit },
 	        _react2.default.createElement('input', { type: 'text', placeholder: 'What do you need to do?', ref: 'todoText' }),
 	        _react2.default.createElement(
 	          'button',
-	          { className: 'button' },
+	          { className: 'button expanded' },
 	          'Add Todo'
 	        )
 	      )
@@ -26027,7 +26044,7 @@
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      null,
+	      { className: 'container__header' },
 	      _react2.default.createElement(
 	        'div',
 	        null,
@@ -34467,6 +34484,13 @@
 	    var todos = this.props.todos;
 
 	    var renderTodo = function renderTodo() {
+	      if (todos.length === 0) {
+	        return _react2.default.createElement(
+	          'p',
+	          { className: 'container__message' },
+	          'Nothing To Do'
+	        );
+	      }
 	      return todos.map(function (todo) {
 	        return _react2.default.createElement(_Todo2.default, _extends({ key: todo.id }, todo, { onToggle: _this.props.onToggle }));
 	      });
@@ -34514,6 +34538,7 @@
 	        createdAt = _props.createdAt,
 	        completedAt = _props.completedAt;
 
+	    var todoClassName = completed ? 'todo todo-completed' : 'todo';
 	    var renderDate = function renderDate() {
 	      var message = 'Created ';
 	      var timestamp = createdAt;
@@ -34527,19 +34552,27 @@
 	    };
 	    return _react2.default.createElement(
 	      'div',
-	      { onClick: function onClick() {
+	      { className: todoClassName, onClick: function onClick() {
 	          _this.props.onToggle(id);
 	        } },
-	      _react2.default.createElement('input', { type: 'checkbox', checked: completed }),
 	      _react2.default.createElement(
-	        'p',
+	        'div',
 	        null,
-	        text
+	        _react2.default.createElement('input', { type: 'checkbox', checked: completed })
 	      ),
 	      _react2.default.createElement(
-	        'p',
+	        'div',
 	        null,
-	        renderDate()
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          text
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          { className: 'todo__subtext' },
+	          renderDate()
+	        )
 	      )
 	    );
 	  }
