@@ -21,6 +21,20 @@ describe('Reducers', () => {
       }
       var res = reducers.showCompletedReducer(df(false), df(action));
       expect(res).toEqual(true);
-    })
-  })
+    });
+  });
+
+  describe('todosReducer',() => {
+    it('should add todo in todos list', () => {
+      var action = {
+        type: 'ADD_TODO',
+        text: 'Walk the dog'
+      };
+      var res = reducers.todosReducer(df([]), df(action));
+
+      expect(res.length).toEqual(1);
+      expect(res[0].text).toEqual(action.text);
+    });
+  });
+
 });
