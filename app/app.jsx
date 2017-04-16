@@ -7,10 +7,16 @@ import 'style!css!foundation-sites/dist/css/foundation.min.css';
 var actions = require('actions');
 var store = require('configureStore').configure();
 $(document).foundation();
+var TodoAPI = require('TodoAPI');
 
 store.subscribe(() => {
-  console.log('store', store.getState());
+  var state = store.getState();
+  console.log('store', state);
+  TodoAPI.setTodos(state.todos);
 });
+
+var initialTodos = TodoAPI.getTodos();
+store.dispatch(actions.addTodos(initialTodos));
 
 import 'style!css!sass!applicationStyles';
 

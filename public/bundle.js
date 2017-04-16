@@ -118,10 +118,16 @@
 	var actions = __webpack_require__(361);
 	var store = __webpack_require__(424).configure();
 	$(document).foundation();
+	var TodoAPI = __webpack_require__(362);
 
 	store.subscribe(function () {
-	  console.log('store', store.getState());
+	  var state = store.getState();
+	  console.log('store', state);
+	  TodoAPI.setTodos(state.todos);
 	});
+
+	var initialTodos = TodoAPI.getTodos();
+	store.dispatch(actions.addTodos(initialTodos));
 
 	_reactDom2.default.render(_react2.default.createElement(
 	  Provider,
@@ -27267,53 +27273,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 	var React = __webpack_require__(8);
 
-	var TodoAPI = __webpack_require__(362);
 	var moment = __webpack_require__(261);
 
 	var TodoApp = React.createClass({
 	  displayName: 'TodoApp',
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      showCompleted: false,
-	      searchText: '',
-	      todos: TodoAPI.getTodos()
-	    };
-	  },
-	  componentDidUpdate: function componentDidUpdate() {
-	    TodoAPI.setTodos(this.state.todos);
-	  },
-	  handleAddTodo: function handleAddTodo(text) {
-	    this.setState({
-	      todos: [].concat(_toConsumableArray(this.state.todos), [{
-	        id: (0, _nodeUuid2.default)(),
-	        text: text,
-	        completed: false,
-	        createdAt: moment().unix(),
-	        completedAt: undefined
-	      }])
-	    });
-	  },
-	  handleSearch: function handleSearch(showCompleted, searchText) {
-	    this.setState({
-	      showCompleted: showCompleted,
-	      searchText: searchText.toLowerCase()
-	    });
-	  },
-
 	  render: function render() {
-	    var _state = this.state,
-	        todos = _state.todos,
-	        showCompleted = _state.showCompleted,
-	        searchText = _state.searchText;
-
-
-	    var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
-
 	    return React.createElement(
 	      'div',
 	      null,
@@ -27331,9 +27298,9 @@
 	          React.createElement(
 	            'div',
 	            { className: 'container' },
-	            React.createElement(_TodoSearch2.default, { onSearch: this.handleSearch }),
+	            React.createElement(_TodoSearch2.default, null),
 	            React.createElement(_TodoList2.default, null),
-	            React.createElement(_AddTodo2.default, { onAddTodo: this.handleAddTodo })
+	            React.createElement(_AddTodo2.default, null)
 	          )
 	        )
 	      )
@@ -40615,6 +40582,13 @@
 	  };
 	};
 
+	var addTodos = exports.addTodos = function addTodos(todos) {
+	  return {
+	    type: 'ADD_TODOS',
+	    todos: todos
+	  };
+	};
+
 	var toggleTodo = exports.toggleTodo = function toggleTodo(id) {
 	  return {
 	    type: 'TOGGLE_TODO',
@@ -49300,6 +49274,8 @@
 	          return todo;
 	        }
 	      });
+	    case 'ADD_TODOS':
+	      return [].concat(_toConsumableArray(state), _toConsumableArray(action.todos));
 	    default:
 	      return state;
 	  }
