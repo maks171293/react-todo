@@ -12,11 +12,6 @@ store.subscribe(() => {
   console.log('store', store.getState());
 });
 
-store.dispatch(actions.addTodo('Get job'));
-store.dispatch(actions.setSearchText('job'));
-store.dispatch(actions.toggleShowCompleted());
-
-
 import 'style!css!sass!applicationStyles';
 
 ReactDOM.render(
